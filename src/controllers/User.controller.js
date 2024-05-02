@@ -27,12 +27,12 @@ const signupController = async (req, res) => {
       email,
       password: hashedPassword,
     });
-
+error
     await newUser.save();
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Internal server error" });
+    console.log(error)
   }
 };
 
@@ -60,7 +60,7 @@ const signinController = async (req, res) => {
     );
     res.status(200).json({ message: "Signin successful", token, userData });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -113,7 +113,7 @@ const forgotPassword = async (req, res) => {
     await transporter.sendMail(mailOptions);
     res.status(200).json({ message: "Password reset email sent successfully" });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).json({
       message: "Internal Server Error",
       error: error.message,
